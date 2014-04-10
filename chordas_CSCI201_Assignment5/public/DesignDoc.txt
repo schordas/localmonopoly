@@ -1,0 +1,148 @@
+DESIGN DOCUMENT
+
+CLASSES:
+	Game_Board Class:
+		Game_Board extends JFrame
+		DATA:
+			static ArrayList <NewPanel> gameSquares;
+				This is an array list that holds each game square which is JPanel. This is used to initialize all the game
+				squares with their location, label, and player icon when the player lands on the square
+			static ArrayList <Space> spaceData;
+				This is an array list that holds all the spaces. It is used to initialize and access all of the data 
+				in the Space class such as name, owner, cost etc.
+			static ArrayList <ImageIcon> playerIcons;
+				This is an array list that holds all the icon images that players will select as their piece. It is used
+				to print all the images when the user is selecting an image as well as access the players icon to display
+				it on the game board.
+			static ArrayList <Player> playersArray;
+				This is an array list of players so that player information such as the player number, balance, etc. can be
+				accessed.
+			static ArrayList <Card> communityCardArray;
+				This an array list of the Card class which is used to initialize and access the cards players will draw
+				when they land on the community card space. 
+			static ArrayList <Card> wildCardArray;
+				This an array list of the Card class which is used to initialize and access the cards players will draw
+				when they land on the wildcard space. 
+			static Bank bankBalance;
+				This an object of the Bank class used to update and access the bank balance to display on the game board
+			static JLabel p1;
+				The label that will appear on the game board for player 1.
+			static JLabel p2;
+				The label that will appear on the game board for player 2.
+			static JLabel p3;
+				The label that will appear on the game board for player 3.
+			static JLabel p4;
+				The label that will appear on the game board for player 4.
+			static JLabel bank ;
+				The label that will appear on the game board for the bank balance.
+			static JPanel left;
+				This panel will display players 1 and 3.
+			static JPanel right;
+				This panel will display players 2 and 4.
+			static JPanel center;
+				This panel will display the bank balance, the current player, the roll button, the name of the game, and 
+				the forfeit button.
+			static int diceVal;
+				This int will be used to hold the sum of the two ints representing the sum of a two die roll.
+			static int currentPlayer;
+				Keeps track of the current player
+			static int totalNumPlayers;
+				Holds the value of the number of active players. 
+		FUNCTIONS:
+		public void setWildCards()
+			Creates several card objects, initializes the data in the Card class, adds the object to the wildCardArray 
+			array list. 
+		public void setCommunityCards()
+			Creates several card objects, initializes the data in the Card class, adds the object to the communityCardArray 
+			array list.
+		public void communityCardDraw(int cardNum, int currentPlayer)
+			Takes in a randomly chosen value cardNum and chooses the community card associated with the value of cardNum.
+			Then it updates the current player and bank balance as necessary.
+		public void wildCardDraw(int cardNum, int currentPlayer)
+			Takes in a randomly chosen value cardNum and chooses the wild card associated with the value of cardNum.
+			Then it updates the current player and bank balance as necessary.
+		public void setImages()
+			Adds images to the playerIcons array list
+		public void setSpaces()
+			Creates all the necessary Space objects and initializes them with the necessary data.
+		public void updateGUIBalance()
+			Updates the JLabels to show the current player and bank balances.
+		public void updateLandLordBalance(int playerNum)
+			Updates the balance of a player when rent is paid to them.
+		public Game_Board()
+			Calls all the setting functions and holds all the functionality and logic of the GUI accept for drawing the 
+			player icons on spaces as they progress. Important algorithms contained in this section include the algorithm to 
+			ensure that the icons used for the players are not chosen twice by removing previously selected icons from 
+			the options; this is done using hashmaps that stores the number of JRadioButtons as a key and the icons as the 
+			value. When an icon which is presented as a radio button is selected, it is removed and the JOptionPane will 
+			display for the next player without that icon. GUI algorithms include algorithms to properly calculate
+			where panels should be drawn. There is an algorithm to add a dice roll value to a player's current space 
+			and place them on an appropriate space. Other algorithms are simple checks to see when amounts must
+			be subtracted from or added to balances, as well as algorithms to set properties with the proper states of 
+			ownership, rent costs, upgrade costs, and whether or not players should be eliminated from the game, and
+			whether or not players can purchase or upgrade, must pay rent, draw a card, or wait on a safe space. Following 
+			the checks is simple arithmetic and/or the proper use of the setters of other classes. 
+		public static void main(String [] args)
+			Creates the GUI object
+	Player Class:
+		DATA:
+			int number;
+				Holds the value of the player number. Ex: Player 1, number = 1.
+			int balance;
+				Holds a player's balance.
+			int currentLocation;
+				Holds they value a players current location which corresponds to the space they are on.
+			int image;
+				Holds a value that corresponds to an icon.
+		FUNCTIONS:
+			Setters and getters. The current location contains logic to wrap the location around to the beginning after 39.
+	NewPanel Class:
+		NewPanel extends JPanel
+		DATA:
+			int id;
+				Holds the value of a number that corresponds with a space. 
+		FUNCTIONS:
+			public NewPanel(int id)
+				sets the id number.
+			protected void paintComponent(Graphics g)
+				Important algorithms: Draws the appropriate player icons on the appropriate space. 
+				If the property is owned, it draws the number
+				of the player who owns it.
+	Space class:
+		DATA:
+			String property;
+				Name of the property. Used to display on game board.
+			boolean isWildCard;
+				Set to true if space is wild card space, all other booleans would be false when this is true.
+			boolean isSafe;
+				Set to true if space is safe or start space, all other booleans would be false when this is true.
+			boolean isCommunity;
+				Set to true if space is community card space, all other booleans would be false when this is true.
+			int owner;
+				The number of the player who owns the space.
+			int value;
+				Purchase price of the property.
+			int upgradeCost;
+				Cost to upgrade property
+			int rent;
+				Rent cost for player that does not own the space.
+		FUNTIONS:
+			Setters and getter. The upgradeCost setter contains logic to increase the upgrade cost by 20% after a property 
+			has been upgraded. The boolean setters set all the other two booleans to false when one is set to true.
+	Bank Class:
+		DATA:
+			int bankBalance;
+				Holds the value of the bank's current balance. 
+		FUNCTIONS:
+			Setter and getter to set the balance.
+	Card Class:
+		DATA:
+			String title;
+				The title that will appear on the JOptionPane associated with the drawn card.
+			String message;	
+				The message that will appear on the JOptionPane associated with the drawn card.
+			int cost;
+				The cost to the player or bank that will be used to set the player and bank balances as necessary. 
+		FUNCTIONS:
+			Setters and getters for the data. 
+		
