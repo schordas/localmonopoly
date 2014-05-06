@@ -2,7 +2,7 @@
 import java.awt.Image;
 
 
-public class Player {
+public class Player implements java.io.Serializable{
 	int number = 0;
 	int balance = 0;
 	int currentLocation = 0;

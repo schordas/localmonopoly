@@ -1,5 +1,5 @@
 //Samuel Chordas 2652701844
-public class Card {
+public class Card implements java.io.Serializable{
 	String title = "";
 	String message = "";
 	int cost = 0;

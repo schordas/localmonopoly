@@ -1,5 +1,5 @@
 //Samuel Chordas 2652701844
-public class Space {
+public class Space implements java.io.Serializable{
 	String property = "";
 	boolean isWildCard = false;
 	boolean isSafe = false;
